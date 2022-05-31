@@ -1,0 +1,16 @@
+###
+POST https://userauth.staging.oregon.platform-os.com/api/user/records
+Content-Type: application/json
+Authorization: Token token=-Pb_wc8tjuXTiOSZZvQWBogfXs16Xig5wdwcIjPxN1s
+
+{
+    "form" : {
+        "property_attribute" : {
+            "name" : "white flower",
+            "creator_id" : 1
+        }
+    },
+    "form_name" : "import_flowers",
+    "parent_object_class" : "CustomModelType",
+    "parent_object_id" : "flower"
+}

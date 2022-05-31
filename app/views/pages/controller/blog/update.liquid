@@ -1,0 +1,25 @@
+---
+    method: post
+---
+
+{%liquid
+    assign title = context.params.title
+    assign content = context.params.content    
+    assign user_id = context.params.user_id
+    assign image_url = context.params.image_url
+    assign category_name = context.params.category_name
+    assign id = context.params.id
+    graphql result = 'blog/update', title: title, content: content, image_url: image_url, category_name: category_name, id: id
+    assign blog = result | fetch: 'record_update'
+%}
+
+{% if blog.id %}
+    <script>
+        window.location.href = '/dashboard/listblog'
+    </script>
+{% else %}
+    <script>
+        alert("Terjadi kesalahan")
+        window.location.href = '/dashboard/addblog'
+    </script>
+{% endif %}

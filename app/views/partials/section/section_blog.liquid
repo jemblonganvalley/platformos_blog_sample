@@ -1,0 +1,138 @@
+
+{%liquid
+    assign category = context.params.category
+    graphql result = 'blog/read' , category_name: category
+    graphql category = 'category/read'
+    assign result_data = result | fetch: "records" | fetch: "results"
+    assign res_category = category | fetch: "records" | fetch: 'results'
+
+    graphql comment = "comment/read"
+    assign comment_data = comment | fetch: "records" | fetch: "results"
+
+%}
+
+
+<section class="w-full flex px-6 mt-10 gap-10 min-h-screen">
+
+    <!-- COL 1 -->
+    <aside class="w-[200px] flex flex-col gap-4">
+        <h1 class="text-2xl font-bold text-orange-500 capitalize">Category</h1>
+
+        <ul class="w-full" id="cat_menu">
+            <a href="/">
+                {%if context.params.category%}
+                    <li class="h-12 flex bg-orange-500  text-white items-center px-4 hover:bg-orange-400 select-none cursor-pointe capitalize" id="{{e.id}}">
+                        All
+                    </li>
+                {%else%}
+                    <li class="h-12 flex bg-orange-400  text-white items-center px-4 hover:bg-orange-400 select-none cursor-pointe capitalize" id="{{e.id}}">
+                        All
+                    </li>
+                {%endif%}
+            </a>
+          {% for e in res_category %}
+            <a href="?category={{e.name}}">
+                {%if context.params.category == e.name%}
+                    <li class="h-12 flex bg-orange-400  text-white items-center px-4 hover:bg-orange-400 select-none cursor-pointe capitalize" id="{{e.id}}">
+                        {{e.name}}
+                    </li>
+                {%else%}
+                    <li class="h-12 flex bg-orange-500  text-white items-center px-4 hover:bg-orange-400 select-none cursor-pointe capitalize" id="{{e.id}}">
+                        {{e.name}}
+                    </li>
+                {%endif%}
+            </a>
+          {% endfor %}
+        </ul>
+    </aside>
+
+    <!-- COL 2 -->
+    <div class="flex-1 flex flex-col gap-6">
+        
+
+        {% for e in result_data %}
+            <a href="/blog/{{e.blog_uuid}}/{{e.title | split: " " | join: "-" }}">
+            <div class="blog_card">
+
+                <!-- CARD RIBBON -->
+                {%if e.category_name%}
+                    <div class="card_ribbon">
+                        {{e.category_name}}
+                    </div>
+                {%endif%}
+                <!-- END CARD RIBBON -->
+
+
+                <h1 class="text-2xl font-bold capitalize"> {{e.title}} </h1>
+                <img src="{{e.image_url}}" alt="{{e.title}}" class="h-[300px] w-full object-cover rounded-md">
+                <div>
+                    <p class="font-bold">{{e.author}}</p>
+                    <small class="italic">{{e.created_at | localize: 'long'}}</small>
+                </div>
+                <!-- <div class="card_content">{{e.content}}</div> -->
+            </div>
+            </a>
+        {% endfor %}
+        
+    </div>
+
+    <!-- COL 3 -->
+    <div class="lg:w-[320px] lg:flex hidden flex-col gap-4">
+        <h1 class="text-2xl font-bold text-orange-500 capitalize">Message</h1>
+        <div class="w-full overflow-y-auto flex flex-col gap-4">
+            <div class="message_card bg-white p-6 flex flex-col gap-2">
+
+                <div class="avatar flex gap-4 items-center w-full">
+                    <img src="https://picsum.photos/seed/fadliselaz/100" alt="fadliselaz" class="rounded-full object-cover w-[32px] h-[32px]">
+                    <div class="flex flex-col">
+                        <h1 class="font-bold">Fadliselaz</h1>
+                        <small class="font-light"> 13-07-1987 </small>
+                    </div>
+                </div>
+
+                <p class="font-light">
+                    Hello guys, my name's Fadli, <br>
+                    I am a fullstack javascript developer,
+                    and now, I start to learning something new in my programer experience, a new platform call Platform Os. <br>
+                    If any question about this sample project, please leave a message in comment section.
+                </p>
+
+            </div>
+        </div>
+
+        <!-- COMMENT LIST -->
+        <h1 class="text-2xl font-bold text-orange-500 capitalize">Comment</h1>
+        <div class="flex flex-col gap-2">
+            {% for cm in comment_data %}
+                <div class="p-4 font-light bg-white flex flex-col">
+                    <p>{{cm.comment}}</p>
+                    <div class="mt-4 flex flex-col gap-0">
+                        <small> <b> {{cm.email}} </b> </small>
+                        <small> {{cm.created_at}} </small>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+
+
+
+        <!-- COMMENT FORM -->
+        <form action="controller/comment/create" method="post" class="comment_form p-6 rounded-lg flex flex-col gap-2 bg-orange-500">
+            <div class="form_group flex flex-col gap-2 ">
+                <label for="_email" class="text-white">Email</label>
+                <input type="email" id="_email" name="email" class="h-12 px-2">
+            </div>
+
+            <div class="form_group flex flex-col gap-2 ">
+                <label for="comment" class="text-white">comment</label>
+                <textarea type="text" id="comment" name="comment" class="p-2 h-[100px]"></textarea>
+            </div>
+
+            <button class="btn h-12 bg-orange-300 text-white mt-2">submit</button>
+        </form>
+
+
+    </div>
+</section>
+
+

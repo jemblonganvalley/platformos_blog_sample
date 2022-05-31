@@ -1,0 +1,12 @@
+---
+    name: superadmin
+    redirect_to: /dashboard
+---
+
+{%
+    assign current_user = context.current_user
+%}
+
+{% if current_user.email == "fadliselaz@gmail.com" %}
+    true
+{% endif %}

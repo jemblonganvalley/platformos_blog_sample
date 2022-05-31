@@ -1,0 +1,29 @@
+---
+  authorization_policies:
+    - has_login
+---
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  {% include 'layout/head' %}
+    <script src="https://cdn.tailwindcss.com"></script>
+  {% include 'styles/main_styles' %}
+</head>
+
+<!-- {% include 'middleware/auth_check' %} -->
+
+<body class="antialiased font-sans leading-relaxed">
+    {% include 'components/navbar' %}
+    
+  <div class="flex">
+    {% include 'components/sideMenu' %}
+
+    {{ content_for_layout }}
+  </div>
+
+
+  <script src="{{ 'scripts/vendor.js' | asset_url }}"></script>
+  <script src="{{ 'scripts/app.js' | asset_url }}" ></script>
+</body>
+</html>

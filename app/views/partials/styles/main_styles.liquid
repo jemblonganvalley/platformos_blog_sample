@@ -1,0 +1,125 @@
+<style type="text/tailwindcss">
+    @layer components {
+      body {
+        @apply bg-gray-50 overflow-x-hidden
+      }
+
+      .content {
+        @apply p-12 flex flex-col items-center
+      }
+
+      #form_sign_in{
+        @apply flex flex-col p-6 bg-white shadow-md gap-2 rounded-lg w-[320px] z-[200]
+      }
+
+      #form_sign_in input {
+        @apply h-12 px-4 outline-none border-[1px] border-gray-300
+      }
+
+      #form_sign_in button{
+        @apply h-12 bg-orange-500 text-white mt-2
+      }
+
+      #form_sign_in small {
+        @apply text-red-400 italic font-light
+      }
+
+      #form_sign_in a {
+        @apply mt-4 italic text-sm
+      }
+
+      .header {
+        @apply w-full h-[500px] flex items-center
+      }
+
+      .header_right {
+        @apply flex-1 h-full flex justify-center items-center relative
+      }
+
+      .header_left {
+        @apply w-[35%] bg-orange-500 h-full flex justify-center items-center bg-gradient-to-t from-orange-700 to-orange-500
+      }
+
+      .header_right img {
+        @apply w-full h-full object-cover absolute
+      }
+
+      .header_right_title {
+        @apply z-[200] text-white
+      }
+
+      .header_right_title h1 {
+        @apply text-white font-bold text-6xl 
+      }
+
+      .navbar {
+        @apply w-full h-12 flex items-center px-6 bg-orange-500 text-white fixed top-0 left-0
+      }
+
+      .navbar .menu {
+        @apply h-full flex ml-auto
+      }
+
+      .menu .menu_item {
+        @apply h-full flex px-4 justify-center items-center text-white capitalize select-none cursor-pointer hover:bg-orange-600 relative
+      }
+
+      .menu .admin_data {
+        @apply h-full flex px-4 justify-center items-center text-white lowercase select-none cursor-pointer hover:bg-orange-600 relative
+      }
+
+
+      .brand {
+        @apply w-[300px] text-white text-2xl font-bold justify-center items-center select-none cursor-pointer
+      }
+
+      .menu_item_group {
+        @apply absolute top-16 right-0 z-[200] bg-slate-100 text-orange-500 w-full 
+      }
+
+      .menu_item_group a{
+        @apply h-12 flex items-center px-4 hover:bg-slate-200 justify-end
+      }
+      
+      .side_menu {
+        @apply w-[200px] flex flex-col h-full p-4 mt-12
+      }
+
+      .side_menu_wrapper {
+        @apply flex flex-col w-full h-full bg-slate-100
+      }
+
+      .sidemenu_item {
+        @apply h-12 flex items-center justify-start px-4 cursor-pointer select-none text-gray-500 hover:bg-orange-400 hover:text-white
+      }
+
+      .dashboard_content {
+        @apply flex-1 p-6 h-full mt-12
+      }
+
+      .content_title {
+        @apply text-4xl font-light capitalize text-orange-500
+      }
+
+      .blog_list_wrapper {
+        @apply flex flex-col w-full gap-4 mt-6
+      }
+
+      .blog_card {
+        @apply w-full flex flex-col p-8 bg-white shadow-md gap-4 rounded-lg relative overflow-hidden
+      }
+
+      .card_content {
+        @apply truncate max-h-[100px]
+      }
+
+      .card_ribbon{
+        @apply h-12 w-[250px] flex items-center text-white bg-gradient-to-tr from-orange-500 to-orange-300 capitalize justify-center absolute rotate-45 -right-16 origin-center shadow-md font-bold
+      }
+
+      .aricle_content{
+        @apply text-lg leading-loose
+      }
+
+    }
+</style>

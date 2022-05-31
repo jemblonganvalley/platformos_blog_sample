@@ -1,0 +1,40 @@
+
+<nav class="side_menu">
+    <menu class="side_menu_wrapper">
+        <a class="sidemenu_item" href="/">
+            <button >Home</button>
+        </a>
+        <!-- <a class="sidemenu_item" href="/dashboard">
+            <button >Dasboard</button>
+        </a> -->
+        <details open>
+            <summary class="sidemenu_item">  
+                Blog 
+                <span class="material-symbols-outlined ml-2">
+                    expand_more
+                </span>
+             </summary>
+            <a class="sidemenu_item ml-2" href="/dashboard/addblog">
+                Add Blog
+            </a>
+
+            <a class="sidemenu_item ml-2" href="/dashboard/listblog">
+                List Blog
+            </a>
+
+            <!-- <a class="sidemenu_item ml-2" href="/dashboard/category">
+                Blog Category
+            </a> -->
+        </details>
+
+        {% if context.current_user.email == "fadliselaz@gmail.com" %}
+            <a class="sidemenu_item" href="/dashboard/category">
+                <button >Category</button>
+            </a>
+        {% endif %}
+        
+        <a class="sidemenu_item" href="/setting">
+            <button >Setting</button>
+        </a>
+    </menu>
+</nav>

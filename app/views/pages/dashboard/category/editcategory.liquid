@@ -1,0 +1,44 @@
+---
+    authorization_policies:
+        - "superadmin"
+    layout: "dashboard_layout"
+---
+
+{%liquid
+    assign id = context.params.id
+    graphql category = 'category/find', id: id
+    assign result = category | fetch: "records" | fetch: "results"
+%}
+
+<div class="dashboard_content">
+
+    <h1 class="content_title">
+        Update Category
+    </h1>
+
+    <form action="/controller/category/update" class="p-6 flex flex-col bg-white gap-4 flex-1 max-w-[450px] mt-10" method="post">
+
+        <input type="hidden" id="id" name="id" value="{{result[0].id}}">
+
+        <div class="flex flex-col gap-2">
+            <label for="category_name">Category Name</label>
+            <input type="text" id="category_name" name="category_name" class="h-12 px-4 outline-none border-[1px]" value="{{result[0].name}}">
+        </div>
+
+        <div class="flex flex-col gap-2">
+            <label for="category_description">Description</label>
+            <textarea type="text" id="category_description" name="category_description" class="h-[100px] p-4 outline-none border-[1px]" >{{result[0].description}}</textarea>
+        </div>
+
+        <div class="flex gap-2">
+            <button class="h-12 bg-gray-300 text-white w-[120px]" type="button">
+                cancel
+            </button>
+
+            <button class="h-12 bg-orange-500 text-white w-[120px]">
+                update
+            </button>
+        </div>
+
+    </form>
+</div>

@@ -1,0 +1,13 @@
+---
+    method: post
+---
+
+{%liquid
+    
+    assign id = context.params.id
+    graphql result = 'blog/delete', id: id
+    assign result_data = result
+    
+%}
+
+{{ result_data }}

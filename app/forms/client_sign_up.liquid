@@ -1,0 +1,39 @@
+---
+name: client_sign_up
+resource: User
+resource_owner: anyone
+redirect_to: /
+fields: 
+    email:
+    password:
+    first_name:
+    last_name:
+---
+
+{% form html-id: 'form_sign_in' %}
+
+    <label for="email">email</label>
+    <input type="email" name="{{ form.fields.email.name }}" value="{{ form.fields.email.value }}" id="email" >
+
+    {% if form.errors.email %}
+        <small>{{ form.errors.email }}</small>
+    {% endif %}
+
+    <label for="first_name">first_name</label>
+    <input type="text" name="{{ form.fields.first_name.name }}" value="{{ form.fields.first_name.value }}" id="first_name" >
+
+    <label for="last_name">last_name</label>
+    <input type="text" name="{{ form.fields.last_name.name }}" value="{{ form.fields.last_name.value }}" id="last_name" >
+
+    <label for="password">password</label>
+    <input type="password" name="{{ form.fields.password.name }}" value="{{ form.fields.password.value }}" id="password" >
+
+    {% if form.errors.password %}
+        <small>{{ form.errors.password }}</small>
+    {% endif %}
+    
+    <button>signup</button>
+
+    <a href="/" >login here</a>
+
+{% endform %}

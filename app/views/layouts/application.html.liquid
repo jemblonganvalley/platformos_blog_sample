@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  {% include 'layout/head' %}
+<script src="https://cdn.tailwindcss.com"></script>
+{% include 'styles/main_styles' %}
+</head>
+
+<body class="antialiased font-sans leading-relaxed">
+  
+  
+  {{ content_for_layout }}
+  
+
+  <script src="{{ 'scripts/vendor.js' | asset_url }}"></script>
+  <script src="{{ 'scripts/app.js' | asset_url }}" ></script>
+</body>
+</html>

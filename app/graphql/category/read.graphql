@@ -1,0 +1,10 @@
+query getCategory {
+  records(per_page: 10, filter: {table: {value: "category"}}) {
+    results {
+      id
+      name: property(name: "category_name")
+      description: property(name: "category_description")
+      created_at
+    }
+  }
+}

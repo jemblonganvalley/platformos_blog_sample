@@ -1,0 +1,22 @@
+---
+    method: post
+---
+
+{%liquid
+    assign email = context.params.email    
+    assign comment = context.params.comment    
+    graphql result = 'comment/create', email: email, comment: comment
+    assign result_data = result | fetch: 'record_create'
+%}
+
+{% if result_data.id %}
+    <script>
+        alert("Thank you..")
+        window.location.href = "/"
+    </script>
+{% else %}
+    <script>
+        alert("Something wrong")
+        window.location.href = "/"
+    </script>
+{% endif %}

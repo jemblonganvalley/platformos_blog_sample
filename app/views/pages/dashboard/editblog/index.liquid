@@ -1,0 +1,124 @@
+
+---
+    layout: dashboard_layout
+    authorization_policies:
+        - has_login
+---
+
+{%liquid
+    graphql result = 'category/read'    
+    assign list_category = result | fetch: "records" | fetch: "results"
+
+    assign blog_uuid = context.params.blog_uuid
+    graphql blog = 'blog/findone', blog_uuid: blog_uuid
+    assign default_data = blog | fetch: "records" | fetch: "results"
+%}
+
+<div class="dashboard_content">
+
+    
+    <h1 class="content_title">dasboard Edit blog  </h1>
+
+    <div class="flex gap-6 w-full mt-6">
+
+        <!-- FORM BLOG -->
+        <form action="/controller/blog/update" method="post" class="p-6 flex flex-col bg-white gap-4 flex-1">
+            
+            <div class="flex flex-col gap-2">
+                <label for="category_name">category</label>
+                <select type="text" class="h-12 px-4 outline-none border-[1px] border-ray-300 capitalize" id="category_name" name="category_name" >
+                    {% for e in list_category %}
+                        <option value="{{e.name}}" >{{e.name}}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="flex flex-col gap-2">
+                <label for="title">title</label>
+                <input type="text" class="h-12 px-4 outline-none border-[1px] border-ray-300" id="title" name="title" value="{{default_data[0].title}}">
+            </div>
+
+            <div class="flex flex-col gap-2">
+                <label for="image_url">image url</label>
+                <input type="text" class="h-12 px-4 outline-none border-[1px] border-ray-300" id="image_url" name="image_url" value="{{default_data[0].image_url}}">
+            </div>
+
+            <div class="flex flex-col gap-2">
+                <label for="content">content</label>
+                <textarea type="text" class="h-[200px] p-4 outline-none border-[1px] border-ray-300" id="content" name="content">{{default_data[0].content}}</textarea>
+            </div>
+
+            <input type="hidden" name="user_id" id="user_id" value="{{ context.current_user.id }}">
+            <input type="hidden" name="blog_uuid" id="blog_uuid" value="{{ blog_uuid }}">
+            <input type="hidden" name="id" id="id" value="{{ default_data[0].id }}">
+
+            <div class="flex gap-2">
+                <button class="h-12 bg-gray-300 text-white w-[120px]" type="button" onclick="handleCancel()">
+                    cancel
+                </button>
+    
+                <button class="h-12 bg-orange-500 text-white w-[120px]" type="submit">
+                    update
+                </button>
+            </div>
+
+        </form>
+        <!-- END FORM BLOG -->
+
+        <!-- DISPLAY BLOG -->
+        <div class="flex-1 flex flex-col gap-4 p-10 bg-white shadow-md">
+            <h1 id="dis_title" class="text-2xl font-bold text-orange-500 capitalize">
+                {{default_data[0].title}}
+            </h1>
+            <img src="{{default_data[0].image_url}}" alt="" class="w-full h-[250px] object-cover rounded-md" id="dis_image_url">
+            <div id="dis_content" class="text-gray-500 p-4"></div>
+        </div>
+        <!-- END DISPLAY BLOG -->
+
+    </div>
+
+</div>
+
+
+<script>
+
+    window.addEventListener("load", ()=>{
+        let dis_content = document.getElementById("dis_content")
+        dis_content.innerHTML = `{{default_data[0].content}}`
+    })
+
+    let title = document.getElementById("title")
+    let image_url = document.getElementById("image_url")
+    let content = document.getElementById("content")
+
+    let dis_title = document.getElementById("dis_title")
+    let dis_image_url = document.getElementById("dis_image_url")
+    let dis_content = document.getElementById("dis_content")
+
+    // realtime show title
+    title.addEventListener("input", (e)=>{
+        dis_title.textContent = e.target.value
+    })
+
+    // realtime show image
+    image_url.addEventListener('change', (e)=>{
+
+        if(e.target.value === ""){
+            return dis_image_url.setAttribute('hidden', true)
+        }
+
+        dis_image_url.setAttribute('src', e.target.value)
+        dis_image_url.removeAttribute("hidden")
+    })
+
+    // realtime show content
+    content.addEventListener("input", (e)=>{
+        dis_content.innerHTML = e.target.value
+    })
+
+    // handle cancel
+    const handleCancel = ()=>{
+        window.location.href = '/dashboard/listblog'
+    }
+
+</script>

@@ -1,0 +1,21 @@
+mutation update(
+    $id: ID!,
+    $title: String!, 
+    $content: String!, 
+    $image_url: String,
+    $category_name: String
+){
+    record_update(
+        id: $id
+        record: {
+            properties: [
+                { name: "title", value: $title }
+                { name: "content", value: $content }
+                { name: "image_url", value: $image_url }
+                { name: "category_name", value: $category_name }
+        ]
+        }
+    ) {
+        id
+    }
+}

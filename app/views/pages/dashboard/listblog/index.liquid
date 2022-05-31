@@ -1,0 +1,73 @@
+---
+    layout: 'dashboard_layout'
+---
+
+{%liquid
+    graphql result = 'blog/read', user_id: context.current_user.id
+    assign blogs = result | fetch: "records" | fetch: "results"
+%}
+
+
+<div class="dashboard_content">
+
+    <h1 class="content_title">blog list</h1>
+
+    <table class="w-full mt-6">
+        <thead >
+            <tr class="h-12 align-middle">
+                <th>id</th>
+                <th>image</th>
+                <th>category</th>
+                <th>title</th>
+                <th>created at</th>
+                <th>action</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            {% for e in blogs %}
+                <tr class="border-b-[1px] border-b-gray-300 capitalize">
+                    <td class="text-center">{{e.id}}</td>
+                    <td class="flex justify-center items-center flex-col">
+                        <img src="{{e.image_url}}" class="h-12 w-12 object-cover">
+                    </td>
+                    <td class="text-center">{{e.category_name}}</td>
+                    <td>{{e.title}}</td>
+                    <td class="text-center text-ellipsis">{{e.created_at | localize: "long"}}</td>
+                    <td class="flex justify-center items-center h-12">
+                        <div class="flex gap-2 items-center my-auto h-12">
+                            <button class="h-10 w-[80px] bg-green-500 text-white self-center" onclick="handleEdit(`{{e.blog_uuid}}`)">edit</button>
+                            <button class="h-10 w-[80px] bg-red-500 text-white self-center" onclick="handleDelete(`{{e.id}}`)">delete</button>
+                        </div>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+</div>
+
+
+<script>
+
+    const handleDelete = async (id)=>{
+        const setuju = await confirm("Confirm Delete Blog ?")
+        if(setuju){
+            fetch(`/controller/blog/delete?id=${id}`, {
+                method : "POST"
+            })
+            .then(res => {
+                window.location.reload()
+            })
+            .catch(err =>{
+                alert("Terjadi kesalahan ")
+            })
+        }
+    }
+
+    const handleEdit = async (id)=>{
+        window.location.href = `/dashboard/editblog?blog_uuid=${id}`
+    }
+
+
+</script>

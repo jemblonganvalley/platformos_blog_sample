@@ -1,0 +1,6 @@
+name: comment
+properties:
+  - name: email
+    type: string
+  - name: comment
+    type: string

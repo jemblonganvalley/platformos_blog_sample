@@ -1,0 +1,28 @@
+---
+    method: post
+---
+
+{%liquid
+    assign category_name = context.params.category_name
+    assign category_description = context.params.category_description
+    assign id = context.params.id
+
+    graphql category = 'category/update', id: id, category_name: category_name, category_description: category_description
+    assign result = category | fetch: "record_update"
+%}
+
+
+{% if result.id %}
+
+    <script>
+        window.location.href = `/dashboard/category`
+    </script>
+
+{% else %}
+    
+        <script>
+            alert("Something went wrong")
+            window.location.href = `/dashboard/category`
+        </script>
+    
+{% endif %}

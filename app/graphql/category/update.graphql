@@ -1,0 +1,13 @@
+mutation update($id: ID!, $category_name: String, $category_description: String){
+    record_update(
+        id: $id
+        record: {
+            properties: [
+                {name: "category_name", value: $category_name}
+                {name: "category_description", value: $category_description}
+            ]
+        }
+    ){
+        id
+    }
+}

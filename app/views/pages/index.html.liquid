@@ -1,0 +1,53 @@
+{%liquid assign email = context.current_user.email %}
+
+<main class="content">
+  <div class="header">
+    <div class="header_left">
+      {% if context.current_user %}
+      <div
+        class="flex gap-4 flex-col w-full justify-center items-center text-white"
+      >
+        <div class="flex flex-col justify-center items-center gap-2 text-white">
+          <span class="material-symbols-outlined text-6xl">account_circle</span>
+          <h1>{{ email }}</h1>
+        </div>
+
+        <div class="flex gap-2">
+          <a href="/dashboard">
+            <button
+              class="h-10 flex items-center justify-center w-[120px] bg-orange-500 capitalize rounded-full"
+            >
+              Dashboard
+            </button>
+          </a>
+
+          <a href="/"> {% include_form 'log_out_client' %} </a>
+        </div>
+      </div>
+      {% else %} {% include_form 'sign_in' %} {% endif %}
+    </div>
+
+    <div class="header_right">
+      <div class="header_right_title">
+        <h1>Platform OS Dashboard</h1>
+        <p>By Selatio Fadli</p>
+      </div>
+
+      <img
+        src="https://images.pexels.com/photos/4498792/pexels-photo-4498792.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
+        alt="header image"
+      />
+    </div>
+  </div>
+
+  {% include 'section/section_blog' %}
+</main>
+
+{% include 'components/footer' %}
+
+<!-- SCROLL IF CATEGORY SELECTED -->
+{% if context.params.category %}
+  <script>
+    window.scrollTo(0, 500);
+  </script>
+{% endif %}

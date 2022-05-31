@@ -1,0 +1,12 @@
+---
+    name: has_login
+    redirect_to: /
+---
+
+{%
+    assign current_user = context.current_user
+%}
+
+{% if current_user %}
+    true
+{% endif %}

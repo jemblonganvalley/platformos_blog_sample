@@ -1,0 +1,26 @@
+---
+    method: post
+---
+
+{%liquid
+    assign title = context.params.title
+    assign content = context.params.content    
+    assign user_id = context.params.user_id
+    assign image_url = context.params.image_url
+    assign category_name = context.params.category_name
+    assign blog_uuid = context.params.blog_uuid
+    assign author = context.params.author
+    graphql result = 'blog/create', title: title, content: content, user_id: user_id, image_url: image_url, category_name: category_name, blog_uuid: blog_uuid, author: author
+    assign blog = result | fetch: 'record_create'
+%}
+
+{% if blog.id %}
+    <script>
+        window.location.href = '/dashboard/listblog'
+    </script>
+{% else %}
+    <script>
+        alert("Terjadi kesalahan")
+        window.location.href = '/dashboard/addblog'
+    </script>
+{% endif %}

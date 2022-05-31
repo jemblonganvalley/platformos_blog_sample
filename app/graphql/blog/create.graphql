@@ -1,0 +1,26 @@
+mutation create(
+    $title: String!, 
+    $content: String!, 
+    $user_id: String!,
+    $image_url: String,
+    $category_name: String!,
+    $blog_uuid: String!,
+    $author: String!
+    ){
+    record_create(
+        record: {
+            table: "blog"
+            properties: [
+                { name: "title", value: $title }
+                { name: "content", value: $content }
+                { name: "user_id", value: $user_id }
+                { name: "image_url", value: $image_url }
+                { name: "category_name", value: $category_name }
+                { name: "blog_uuid", value: $blog_uuid }
+                { name: "author", value: $author }
+            ]
+        }
+    ) {
+        id
+    }
+}

@@ -1,0 +1,14 @@
+
+
+    <div class="h-screen w-screen flex justify-center items-center bg-orange-200 relative">
+        {% if context.current_user %}
+            <script>
+                window.location.href = "/"
+            </script>
+        {% endif %}
+
+        {% include_form 'client_sign_up' %}
+
+        <img src="https://images.pexels.com/photos/4498792/pexels-photo-4498792.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="header image" class="w-full h-full object-cover absolute z-[1] opacity-20">
+    </div>
+

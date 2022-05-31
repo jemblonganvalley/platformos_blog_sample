@@ -1,0 +1,41 @@
+<nav class="navbar">
+    <div class="brand">Platform OS Dashboard</div>
+
+    <menu class="menu">
+        <div class="admin_data group relative gap-2" id="admin_menu_item">
+
+            <div class="flex gap-2" >
+                <span class="material-symbols-outlined">
+                    account_circle
+                </span>
+                {{ context.current_user.email }}
+            </div>
+
+            <div class="flex-col absolute top-16 right-0 hidden" id="admin_menu">
+        
+                {% include_form "log_out" %}
+
+                <a class="w-[200px] h-12 bg-slate-100 flex px-4 items-center text-gray-500 capitalize justify-end hover:bg-slate-200 gap-2" href="/setting">
+                    setting
+                </a>
+
+            </div>
+
+        </div>
+
+    </menu>
+
+</nav>
+
+<script>
+
+    let admin_menu_item = document.getElementById("admin_menu_item")
+    let admin_menu = document.getElementById("admin_menu")
+
+    //toggle admin menu
+    admin_menu_item.addEventListener("click", ()=>{
+        console.info(admin_menu.classList)
+        admin_menu.classList.toggle("hidden")
+    })
+
+</script>

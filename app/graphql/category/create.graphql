@@ -1,0 +1,16 @@
+mutation create(
+    $category_name: String!,
+    $category_description: String!
+    ){
+    record_create (
+        record: {
+            table: "category"
+            properties: [
+                { name: "category_name", value: $category_name },
+                { name: "category_description", value: $category_description }
+            ]
+        }
+    ){
+        id
+    }
+}

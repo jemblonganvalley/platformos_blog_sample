@@ -1,0 +1,42 @@
+<nav class="w-[40px] flex flex-col fixed top-[40%] left-0">
+
+    <a href="/">
+        <div class="flex w-full h-[40px] justify-center items-center bg-orange-500 text-white">
+            <span class="material-symbols-outlined">
+                home
+            </span>
+        </div>
+
+    </a>
+
+    {% if context.current_user.email %}
+        <a href="/dashboard">
+            <div class="flex w-full h-[40px] justify-center items-center bg-orange-500 text-white">
+                <span class="material-symbols-outlined">
+                    dashboard
+                </span>
+            </div>
+        </a>
+
+        {% if context.current_user.id == user_id %}
+            <a href="/dashboard/editblog?blog_uuid={{blog_uuid}}">
+                <div class="flex w-full h-[40px] justify-center items-center bg-orange-500 text-white">
+                    <span class="material-symbols-outlined">
+                        edit
+                    </span>
+                </div>
+            </a>
+        {% endif %}
+
+        <a href="/dashboard/addblog">
+            <div class="flex w-full h-[40px] justify-center items-center bg-orange-500 text-white">
+                <span class="material-symbols-outlined">
+                    add
+                </span>
+            </div>
+        </a>
+
+    {% endif %}
+
+
+</nav>

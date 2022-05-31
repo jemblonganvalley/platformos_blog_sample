@@ -1,0 +1,15 @@
+---
+    layout: "dashboard_layout"
+    authorization_policies: 
+        - has_login
+---
+
+
+<div class="dashboard_content">
+    
+    <h1 class="text-4xl text-orange-500">Wellcome</h1>
+    <p>
+        {{context.current_user.email}}
+    </p>
+
+</div>

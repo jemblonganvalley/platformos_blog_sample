@@ -1,0 +1,16 @@
+query find($id: ID!) {
+  records(
+    per_page: 10
+    filter: {
+        table: {value: "category"},
+        id: {value: $id}
+    }
+  ){
+    results{
+      id
+      name: property(name: "category_name")
+      description: property(name: "category_description")
+      created_at
+    }
+  }
+}

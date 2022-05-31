@@ -1,0 +1,43 @@
+---
+    slug: blog
+---
+
+{%liquid
+    assign params = context.location.pathname | split: "/"
+    graphql result = 'blog/findone', blog_uuid: params[2] 
+    assign dt = result | fetch: "records" | fetch: "results"
+
+%}
+
+<!-- YIELD -->
+    {% content_for 'page_title' %}
+        {{dt[0].title}}
+    {% endcontent_for %}
+
+    {% content_for 'page_thumbnail' %}
+        {{dt[0].image_url}}
+    {% endcontent_for %}
+<!-- END YIELD -->
+
+<main class="w-screen min-h-screen flex flex-col gap-4 p-10 mb-[200px]">
+
+    <article class="w-full max-w-[900px] flex flex-col gap-4 mx-auto">
+        <h1 class="text-4xl font-bold text-orange-500 capitalize"> {{dt[0].title}} </h1>
+        <div>
+            <p>{{dt[0].author}}</p>
+            <small>{{dt[0].created_at | localize: "long" }}</small>
+        </div>
+
+        <img src="{{dt[0].image_url}}" alt="{{dt[0].title}}" class="w-full h-[400px] object-cover">
+
+        <div class="aricle_content">
+            {{dt[0].content}}
+        </div>
+
+    </article>
+
+    {% include 'components/blogMenu' , user_id: dt[0].user_id , blog_uuid: params[2] %}
+
+</main>
+
+{% include 'components/footer' %}
