@@ -1,0 +1,49 @@
+---
+    method: get
+---
+
+{%liquid
+        assign text = context.params.search
+        graphql result = 'blog/search', text: text
+        assign result_data = result | fetch: "records" | fetch: "results"
+%}
+
+
+<main class="w-screen min-h-screen flex flex-col gap-4 p-10">
+    
+    <div class="flex flex-col gap-4 w-[700px] mx-auto">
+
+        
+        <form action="/blog/search" class="search_form_2">
+            <div class="flex relative">
+                <button type="submit" class="material-symbols-outlined absolute self-center right-1 select-none bg-orange-500 text-white p-2 rounded-full">
+                    search
+                </button>
+                <input type="text" id="search" name="search" placeholder="search article" value="{{ text }}">
+            </div>
+        </form>
+
+        <div class="search_container">
+            {%for e in result_data%}
+                <a href="/blog/{{e.blog_uuid}}/{{e.title | split: ' ' | join: '-'}}">
+                    <div class="search_card">
+                        <img src="{{e.image_url}}" alt="{{e.title}}">
+                        <div>
+                            <h1 class="text-orange-500 capitalize font-bold">{{e.title}}</h1>
+                            <small>
+                                <b>{{e.author}}</b>
+                            </small> | 
+                            <small>{{ e.created_at | localize: "long" }}</small>
+                        </div>
+                    </div>
+                </a>
+            {% endfor %}
+        </div>
+
+        
+    </div>
+
+    {% include 'components/blogMenu'  %}
+
+
+</main>

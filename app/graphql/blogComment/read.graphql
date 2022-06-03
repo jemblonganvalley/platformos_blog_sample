@@ -1,0 +1,21 @@
+query read_blog_comment($blog_uuid: String!){
+
+    records(
+        per_page: 10
+        filter: {
+            table: {value: "blogcomment"}
+            properties: [
+                {name: "blog_uuid", value: $blog_uuid}
+            ]
+        }
+    ){
+        results {
+            id
+            blog_uuid: property(name: "blog_uuid")
+            email: property(name: "email")
+            comment: property(name: "comment")
+            created_at
+        }
+    }
+
+}

@@ -28,7 +28,7 @@
                 <label for="category_name">category</label>
                 <select type="text" class="h-12 px-4 outline-none border-[1px] border-ray-300 capitalize" id="category_name" name="category_name" >
                     {% for e in list_category %}
-                        <option value="{{e.name}}" >{{e.name}}</option>
+                        <option value="{{e.name}}" id="{{e.name}}" >{{e.name}}</option>
                     {% endfor %}
                 </select>
             </div>
@@ -66,12 +66,12 @@
         <!-- END FORM BLOG -->
 
         <!-- DISPLAY BLOG -->
-        <div class="flex-1 flex flex-col gap-4 p-10 bg-white shadow-md">
+        <div class="flex-1 flex flex-col gap-4 p-10 bg-white shadow-md max-w-[500px]">
             <h1 id="dis_title" class="text-2xl font-bold text-orange-500 capitalize">
                 {{default_data[0].title}}
             </h1>
             <img src="{{default_data[0].image_url}}" alt="" class="w-full h-[250px] object-cover rounded-md" id="dis_image_url">
-            <div id="dis_content" class="text-gray-500 p-4"></div>
+            <div id="dis_content" class="aricle_content" ></div>
         </div>
         <!-- END DISPLAY BLOG -->
 
@@ -85,6 +85,11 @@
     window.addEventListener("load", ()=>{
         let dis_content = document.getElementById("dis_content")
         dis_content.innerHTML = `{{default_data[0].content}}`
+
+        // set select fields category
+        let optionId = document.getElementById(`{{default_data[0].category_name}}`)
+        optionId.setAttribute("selected", true)
+
     })
 
     let title = document.getElementById("title")

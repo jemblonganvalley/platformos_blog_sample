@@ -6,7 +6,6 @@
     assign params = context.location.pathname | split: "/"
     graphql result = 'blog/findone', blog_uuid: params[2] 
     assign dt = result | fetch: "records" | fetch: "results"
-
 %}
 
 <!-- YIELD -->
@@ -19,25 +18,77 @@
     {% endcontent_for %}
 <!-- END YIELD -->
 
-<main class="w-screen min-h-screen flex flex-col gap-4 p-10 mb-[200px]">
-
-    <article class="w-full max-w-[900px] flex flex-col gap-4 mx-auto">
+<main class="article_main">
+    <article class="article_container">
         <h1 class="text-4xl font-bold text-orange-500 capitalize"> {{dt[0].title}} </h1>
-        <div>
-            <p>{{dt[0].author}}</p>
-            <small>{{dt[0].created_at | localize: "long" }}</small>
+        <div class="flex gap-2 items-center">
+            <p>{{dt[0].author}}</p> |
+            <p>{{dt[0].created_at | localize: "long" }}</p>
         </div>
 
-        <img src="{{dt[0].image_url}}" alt="{{dt[0].title}}" class="w-full h-[400px] object-cover">
-
+        {% if dt[0].image_url %}
+            <img src="{{dt[0].image_url}}" alt="{{dt[0].title}}" class="article_banner">
+        {% endif %}
         <div class="aricle_content">
             {{dt[0].content}}
         </div>
-
     </article>
 
+    <!-- BLOG MENU -->
     {% include 'components/blogMenu' , user_id: dt[0].user_id , blog_uuid: params[2] %}
+    <!-- END BLOG MENU -->
+
+    <!-- IMAGE PREVIEW -->
+    <div class="image_preview_modal" id="image_preview" >
+        <!-- RENDER FROM JS -->
+    </div>
+    <!-- END IMAGE PREVIEW -->
+
+    <!-- COMMENTS -->
+    {% include 'components/blogComments',  blog_uuid: dt[0].blog_uuid %}
+    <!-- END COMMENTS -->
 
 </main>
 
+<!-- FOOTER -->
 {% include 'components/footer' %}
+<!-- END FOOTER -->
+
+
+<script>
+
+    let img = document.querySelectorAll('img')
+
+    // close image preview
+    const handleClosePreview = ()=>{
+        let image_preview = document.getElementById('image_preview')
+        image_preview.classList.remove('flex')
+        image_preview.classList.add('hidden')
+    }
+
+    // show image modal when user click an image
+    const handleShowImage = (url)=>{
+        console.info(url)
+        let image_preview = document.getElementById('image_preview')
+        let img = document.getElementById('image_preview_img')
+        image_preview.classList.remove('hidden')
+        image_preview.classList.add('flex')
+        image_preview.innerHTML = `
+            <img src="${url}" />
+            <button class="close_button h-12 w-[120px] bg-orange-500 text-white fixed top-0 right-0 z-[500] flex gap-2 justify-center items-center rounded-md" onclick="handleClosePreview()">
+                Close
+                <span class="material-symbols-outlined">
+                    close
+                </span>
+            </button>
+        `
+    }   
+
+    //add image show function in every image
+    img.forEach((e)=>{
+        e.addEventListener('click', ()=>{
+            handleShowImage(e.src)
+        })
+    })
+
+</script>

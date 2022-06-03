@@ -29,15 +29,30 @@
                 <tr class="border-b-[1px] border-b-gray-300 capitalize">
                     <td class="text-center">{{e.id}}</td>
                     <td class="flex justify-center items-center flex-col">
-                        <img src="{{e.image_url}}" class="h-12 w-12 object-cover">
+                        {% if e.image_url %}
+                            <img src="{{e.image_url}}" class="h-12 w-12 object-cover">
+                        {% endif %}
                     </td>
                     <td class="text-center">{{e.category_name}}</td>
                     <td>{{e.title}}</td>
                     <td class="text-center text-ellipsis">{{e.created_at | localize: "long"}}</td>
                     <td class="flex justify-center items-center h-12">
                         <div class="flex gap-2 items-center my-auto h-12">
-                            <button class="h-10 w-[80px] bg-green-500 text-white self-center" onclick="handleEdit(`{{e.blog_uuid}}`)">edit</button>
-                            <button class="h-10 w-[80px] bg-red-500 text-white self-center" onclick="handleDelete(`{{e.id}}`)">delete</button>
+                            <button class="h-8 w-8 bg-green-500 text-white self-center flex justify-center items-center rounded-md" onclick="handleEdit(`{{e.blog_uuid}}`)">
+                                <span class="material-symbols-outlined">
+                                    edit
+                                </span>
+                            </button>
+                            <button class="h-8 w-8 bg-red-500 text-white self-center flex justify-center items-center rounded-md" onclick="handleDelete(`{{e.id}}`)">
+                                <span class="material-symbols-outlined">
+                                    delete
+                                </span>
+                            </button>
+                            <button class="h-8 w-8 bg-orange-500 text-white self-center flex justify-center items-center rounded-md" onclick="handlePreview(`{{e.blog_uuid}}`, `{{e.title | split: ' ' | join: '-' }}`)">
+                                <span class="material-symbols-outlined">
+                                    visibility
+                                </span>
+                            </button>
                         </div>
                     </td>
                 </tr>
@@ -67,6 +82,10 @@
 
     const handleEdit = async (id)=>{
         window.location.href = `/dashboard/editblog?blog_uuid=${id}`
+    }
+
+    const handlePreview = (id, title)=>{
+        window.open(`/blog/${id}/${title}`)
     }
 
 

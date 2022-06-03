@@ -1,0 +1,14 @@
+mutation create($blog_uuid: String!, $email: String!, $comment: String!){
+    record_create(
+        record: {
+            table: "blogcomment"
+            properties: [
+                {name: "blog_uuid", value: $blog_uuid},
+                {name: "email", value: $email},
+                {name: "comment", value: $comment},
+            ]
+        }
+    ){
+        id
+    }
+}

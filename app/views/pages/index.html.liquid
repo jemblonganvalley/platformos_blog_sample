@@ -1,4 +1,12 @@
+
+
 {%liquid assign email = context.current_user.email %}
+
+<!-- YIELD  -->
+{% content_for 'page_title' %}
+  Platform Os Blog
+{% endcontent_for %}
+<!-- YIELD  -->
 
 <main class="content">
   <div class="header">
@@ -28,9 +36,14 @@
     </div>
 
     <div class="header_right">
+
+      <form action="blog/search" class="search_form">
+        <input type="text" id="search" name="search" placeholder="search article">
+      </form>
+
       <div class="header_right_title">
-        <h1>Platform OS Dashboard</h1>
-        <p>By Selatio Fadli</p>
+        <h1>Platform OS Blog</h1>
+        <p>By Selastio Fadli</p>
       </div>
 
       <img
@@ -45,9 +58,11 @@
 
 {% include 'components/footer' %}
 
+
 <!-- SCROLL IF CATEGORY SELECTED -->
 {% if context.params.category %}
   <script>
     window.scrollTo(0, 500);
   </script>
 {% endif %}
+

@@ -1,0 +1,25 @@
+---
+    method: post
+---
+
+{%liquid
+    
+    assign blog_uuid = context.params.blog_uuid
+    assign email = context.params.email
+    assign comment = context.params.comment
+    assign prev_url = context.params.prev_url
+
+    graphql result = 'blogComment/create', blog_uuid: blog_uuid, email: email, comment: comment
+    assign result_data = result | fetch: "record_create"
+
+%}
+
+
+{%if result_data.id%}
+    <script>
+        window.location.href = `{{prev_url}}/#blog_comments`
+    </script>
+{% else %}
+    {{ result }}
+{%endif%}
+

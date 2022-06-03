@@ -64,7 +64,9 @@
 
 
                 <h1 class="text-2xl font-bold capitalize"> {{e.title}} </h1>
-                <img src="{{e.image_url}}" alt="{{e.title}}" class="h-[300px] w-full object-cover rounded-md">
+                {% if e.image_url %}
+                    <img src="{{e.image_url}}" alt="{{e.title}}" class="h-[300px] w-full object-cover rounded-md">
+                {% endif %}
                 <div>
                     <p class="font-bold">{{e.author}}</p>
                     <small class="italic">{{e.created_at | localize: 'long'}}</small>
@@ -117,18 +119,18 @@
 
 
         <!-- COMMENT FORM -->
-        <form action="controller/comment/create" method="post" class="comment_form p-6 rounded-lg flex flex-col gap-2 bg-orange-500">
+        <form action="controller/comment/create" method="post" class="p-6 rounded-lg flex flex-col gap-2 bg-orange-500">
             <div class="form_group flex flex-col gap-2 ">
                 <label for="_email" class="text-white">Email</label>
-                <input type="email" id="_email" name="email" class="h-12 px-2">
+                <input type="email" id="_email" name="email" class="h-12 px-2 outline-none">
             </div>
 
             <div class="form_group flex flex-col gap-2 ">
                 <label for="comment" class="text-white">comment</label>
-                <textarea type="text" id="comment" name="comment" class="p-2 h-[100px]"></textarea>
+                <textarea type="text" id="comment" name="comment" class="p-2 h-[100px] outline-none"></textarea>
             </div>
 
-            <button class="btn h-12 bg-orange-300 text-white mt-2">submit</button>
+            <button class="h-12 bg-orange-300 text-white mt-2 rounded-full">submit</button>
         </form>
 
 
