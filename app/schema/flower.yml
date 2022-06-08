@@ -1,0 +1,6 @@
+name: flower
+properties:
+- name: name
+  type: string
+- name: creator_id
+  type: integer

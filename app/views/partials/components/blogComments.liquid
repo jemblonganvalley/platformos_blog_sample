@@ -18,6 +18,23 @@
                 <small>
                     <b> {{bc.email}} </b> | {{bc.created_at | localize: "long"}}
                 </small>
+
+                {% if context.current_user.email == "fadliselaz@gmail.com" %}
+                    <div class="flex gap-2 w-full justify-end">
+                        <details class="appearance-none w-full flex justify-end"> 
+                            <summary class="h-10 bg-gray-200 rounded-full text-gray-500 w-[120px] flex items-center justify-center select-none cursor-pointer ml-auto">
+                                Reply
+                            </summary>
+                            <form class="form_reply">
+                                <label for="reply_{{bc.id}}">Reply Comment</label>
+                                <textarea name="reply" id="reply_{{bc.id}}" ></textarea>
+
+                                <button type="submit">submit</button>
+                            </form>
+                        </details>
+                    </div>
+                {%endif%}
+
             </div>
         </div>
     {%endfor%}

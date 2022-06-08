@@ -1,13 +1,15 @@
 ---
-    name: import_flowers
-    resource: flower
-    fields: 
-        properties:
-            name: 
-                validation: 
-                    presence: true
-            creator_id:
-                validation:
-                    presence: true
-    resource_owner: anyone
+name: import_flowers
+resource: flower
+fields:
+  properties:
+    name:
+      validation:
+        presence: true
+    creator_id:
+      validation:
+        presence: true
+resource_owner: anyone
 ---
+
+{{ form.properties.name }}

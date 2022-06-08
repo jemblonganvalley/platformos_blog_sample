@@ -21,24 +21,32 @@
         <ul class="w-full" id="cat_menu">
             <a href="/">
                 {%if context.params.category%}
-                    <li class="h-12 flex bg-orange-500  text-white items-center px-4 hover:bg-orange-400 select-none cursor-pointe capitalize" id="{{e.id}}">
-                        All
+                    <li  id="{{e.id}}">
+                        <div class="h-12 flex bg-orange-500  text-white items-center px-4 hover:bg-orange-400 select-none cursor-pointe capitalize">
+                            All
+                        </div>
                     </li>
                 {%else%}
-                    <li class="h-12 flex bg-orange-400  text-white items-center px-4 hover:bg-orange-400 select-none cursor-pointe capitalize" id="{{e.id}}">
-                        All
+                    <li  id="{{e.id}}">
+                        <div class="h-12 flex bg-orange-400  text-white items-center px-4 hover:bg-orange-400 select-none cursor-pointe capitalize">
+                            All
+                        </div>
                     </li>
                 {%endif%}
             </a>
           {% for e in res_category %}
             <a href="?category={{e.name}}">
                 {%if context.params.category == e.name%}
-                    <li class="h-12 flex bg-orange-400  text-white items-center px-4 hover:bg-orange-400 select-none cursor-pointe capitalize" id="{{e.id}}">
-                        {{e.name}}
+                    <li  id="{{e.id}}">
+                        <div class="h-12 flex bg-orange-400  text-white items-center px-4 hover:bg-orange-400 select-none cursor-pointe capitalize">
+                            {{e.name}}
+                        </div>
                     </li>
                 {%else%}
-                    <li class="h-12 flex bg-orange-500  text-white items-center px-4 hover:bg-orange-400 select-none cursor-pointe capitalize" id="{{e.id}}">
-                        {{e.name}}
+                    <li  id="{{e.id}}">
+                        <div class="h-12 flex bg-orange-500  text-white items-center px-4 hover:bg-orange-400 select-none cursor-pointe capitalize">
+                            {{e.name}}
+                        </div>
                     </li>
                 {%endif%}
             </a>

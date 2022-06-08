@@ -1,0 +1,21 @@
+---
+method: post
+format: json
+response_headers: '{
+    "Content-Type": "application/json",
+    "status_code" : 201
+  }'
+---
+
+{%liquid 
+    assign data = context.params.data 
+    graphql result = 'category/read',
+    assign result_data = result | fetch: "records" 
+%} 
+
+
+{
+    "status" : 201,
+    "data" : {{ result_data.results }}
+}
+

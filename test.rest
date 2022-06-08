@@ -1,5 +1,5 @@
 ###
-POST https://userauth.staging.oregon.platform-os.com/api/user/records
+GET https://userauth.staging.oregon.platform-os.com/api/user/records
 Content-Type: application/json
 Authorization: Token token=-Pb_wc8tjuXTiOSZZvQWBogfXs16Xig5wdwcIjPxN1s
 
